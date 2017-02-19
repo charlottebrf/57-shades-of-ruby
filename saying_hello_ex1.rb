@@ -23,3 +23,7 @@ end
 saying_hello
 
 #can create new variables in body, doesn't need a parameter
+
+#Challenges
+#Write a new version of the program without using any variables
+#Write a version of the program that displays different greetings for different people. 
