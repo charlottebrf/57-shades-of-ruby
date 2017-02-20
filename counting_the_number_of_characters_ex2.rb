@@ -16,3 +16,7 @@ def string_counter
 end
 
 puts string_counter
+
+#Challenges
+#if the user enters nothing state that the user must enter something into the program
+#implement this program using a graphical user interface & update the character counter every time a key is pressed
