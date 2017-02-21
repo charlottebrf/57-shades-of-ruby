@@ -25,11 +25,11 @@
 
 def simple_math
   puts "What is the first number"
-  first_number = gets.to_i
+  first_number = gets.chomp.to_i
   # first_number = (gets.chomp).to_i
   # first_number = Integer(gets.chomp)
   puts "What is the second number?"
-  second_number = gets.to_i
+  second_number = gets.chomp.to_i
   p first_number + second_number
   p first_number - second_number
   p first_number * second_number
