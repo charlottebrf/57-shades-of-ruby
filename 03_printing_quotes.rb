@@ -32,9 +32,3 @@ printing_quotes
 #Constraints:
 #Use a single output statement to produce this output, using appropriate string-escaping techniques for quotes
 #If your language supports string interpolation or string substition, don't use it for this exercise. Use string concatenation instead.
-
-# RSpec.describe "printing quotes" do
-#   it "prompts for a quote & returns the given quote" do
-#     expect(printing_quotes).to eq ("Im wide awake")
-#   end
-# end
