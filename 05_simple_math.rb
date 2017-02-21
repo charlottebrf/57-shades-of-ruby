@@ -23,20 +23,23 @@
 # first_number * second_number
 # first_number / second_number
 
+
 def simple_math
   puts "What is the first number"
-  first_number = gets.chomp.to_i
-  # first_number = (gets.chomp).to_i
-  # first_number = Integer(gets.chomp)
+  first_number = Integer(gets.chomp)
   puts "What is the second number?"
-  second_number = gets.chomp.to_i
-  p first_number + second_number
-  p first_number - second_number
-  p first_number * second_number
-  p first_number / second_number
+  second_number = Integer(gets.chomp)
+  puts first_number + second_number
+  puts first_number - second_number
+  puts first_number * second_number
+  puts first_number / second_number
 end
 
 simple_math
+
+# first_number = (gets.chomp).to_i
+# first_number = Integer(gets.chomp)
+
 
 # How do you make tests for gets.chomp cases?
 # RSpec.describe "simple math" do
