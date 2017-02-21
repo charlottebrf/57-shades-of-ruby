@@ -26,8 +26,9 @@ def retirement_calculator
   retire_age = Integer(gets.chomp)
   years_left_to_retirement = retire_age - age
   puts "You have #{years_left_to_retirement} until you retire."
-  retirement_year = 2017 - years_left_to_retirement
-  puts "It's 2017, so you can retire in #{retirement_year}."
+  current_year = Date.today.year #uninitialized constant error
+  retirement_year = current_year - years_left_to_retirement
+  puts "It's #{current_year}, so you can retire in #{retirement_year}."
 end
 
 retirement_calculator
