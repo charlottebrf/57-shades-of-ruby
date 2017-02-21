@@ -18,6 +18,7 @@
 # years_left_to_retirement = retire_age- age
 # output: "You have"  + years_left_to_retirement + "left until you can retire"
 # output: "It's 2017, so you can retire in" + 2017 + years_left_to_retirement " ."
+require('date') #date / class /ruby
 
 def retirement_calculator
   puts "What is your current age?"
@@ -27,7 +28,7 @@ def retirement_calculator
   years_left_to_retirement = retire_age - age
   puts "You have #{years_left_to_retirement} until you retire."
   current_year = Date.today.year #uninitialized constant error
-  retirement_year = current_year - years_left_to_retirement
+  retirement_year = current_year + years_left_to_retirement
   puts "It's #{current_year}, so you can retire in #{retirement_year}."
 end
 
