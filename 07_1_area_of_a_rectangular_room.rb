@@ -17,9 +17,13 @@
 # input length = gets.chomp
 # prompt "What is the width of the room in feet?"
 # input width = gets.chomp
-# prompt "You entered dimensions of #{length} feet by #{width} feet."
-# area = length * width
-# area_m = area ** area x 0.09290304
-# prompt "The area is "
-# prompt "#{area} square feet"
-# prompt "#{area_m} square feet"
+# print "You entered dimensions of #{length} feet by #{width} feet."
+# area_f = length * width
+# area_m = area_f * 0.09290304
+# print "The area is "
+# print "#{area} square feet"
+# print "#{area_m} square feet"
+
+def get_area_in_square_feet
+  puts 
+end
