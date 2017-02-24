@@ -18,6 +18,7 @@
 # years_left_to_retirement = retire_age- age
 # output: "You have"  + years_left_to_retirement + "left until you can retire"
 # output: "It's 2017, so you can retire in" + 2017 + years_left_to_retirement " ."
+
 require('date') #date / class /ruby
 
 def retirement_calculator
