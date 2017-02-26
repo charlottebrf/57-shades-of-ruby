@@ -34,6 +34,43 @@
 #   ^                 |
 #   |_________________|
 
+def get_length_of_room()
+  puts "What is the length of the room in feet?"
+  gets.chomp
+end
+
+def get_width_of_room()
+  puts "What is the width of the room in feet?"
+  gets.chomp
+end
+
+def main()
+  length = get_length_of_room()
+  width = get_width_of_room()
+  do_stuff(length,width)
+end
+
+def do_stuff(length,width)
+  if string_contains_digits?(length)
+    confirms_measurements(length)
+  elsif string_contains_digits?(width)
+    confirms_measurements(width)
+  else
+    confirms_measurements(length,width) #is it 2 parameters or 1?
+  end
+end
+
+def confirms_measurements
+  length = get_length_of_room()
+  width = get_width_of_room()
+  if string_contains_digit?(length) && string_contains_digit?(width)
+    "You entered dimensions of #{length} feet by #{width} feet."
+  else
+    "You've entered an incorrect value. Please answer the question again with a number,e.g. 30." #stretch point- see
+  end
+end
+
+
 def string_contains_digit?(str)
   if str =~ /^\d+$/
     true
@@ -74,6 +111,9 @@ RSpec.describe "area of a rectangular room" do
   it "converts the string to a number" do
     expect(convert_string_to_number("10")).to eq (10)
   end
+  # it "confirms measurements with a success message if numbers have been used" do
+  #   expect(confirms_measurements()).to eq ("You entered dimensions of 10 feet by 5 feet.")
+  # end
 end
 
 #Regex notes
