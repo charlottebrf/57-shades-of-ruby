@@ -20,6 +20,7 @@
 # validate measurement data in 3 methods:
 # 1. Does the string contain a digit?
 # 2. Yes => convert the string to a digit
+# extract digit
 # 3. Use data in maths exercises
 # 4. No- error message
 
@@ -34,17 +35,60 @@
 #   |_________________|
 
 def string_contains_digit?(str)
-  true
+  if str =~ /^\d+$/
+    true
+  else
+    false
+  end
 end
 
+def convert_string_to_number(str)
+  str.to_i
+end
+
+
+
+
+RSpec.describe "area of a rectangular room" do
+  it "returns true if the string contains a digit in the range 0-9" do
+    expect(string_contains_digit?("3")).to eq (true)
+  end
+  it "returns true if the string contains a digit with two digits" do
+    expect(string_contains_digit?("10")).to eq (true)
+  end
+  it "returns true if the string contains three digits" do
+    expect(string_contains_digit?("101")).to eq (true)
+  end
+  it "returns if the string contains four digits and more" do
+    expect(string_contains_digit?("1001")).to eq (true)
+  end
+  it "returns false if the string contains letters not digits" do
+    expect(string_contains_digit?("abc")).to eq (false)
+  end
+  it "returns false if the string contains characters not digits" do
+    expect(string_contains_digit?("$!@*")).to eq (false)
+  end
+  it "returns false if the string contains an empty string not digits" do
+    expect(string_contains_digit?(" ")).to eq (false)
+  end
+  it "converts the string to a number" do
+    expect(convert_string_to_number("10")).to eq (10)
+  end
+end
+
+#Regex notes
 # if string =~ /^\d$/ #how can i specify a range from a string "0..9" so first test should return false? ("0..9").to_a.join
 #       true
 # \d+
 # \d Will find 1 (!) digit. \d\d will find two consecutive ones. \d+ will find many, but at least one consecutive characters.
 
-
-RSpec.describe "area of a rectangular room" do
-  it "returns true if the string contains a digit" do
-    expect(string_contains_digit?("3")).to eq (true)
-  end
-end
+#step 1
+# def string_contains_digit?(str)
+#   if str =~ /^\d$/
+#     true
+#   elsif str =~ /^\d\d$/
+#     true
+#   elsif str =~ /^\d+$/
+#     true
+#   end
+# end
