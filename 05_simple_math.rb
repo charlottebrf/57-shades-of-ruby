@@ -27,7 +27,7 @@
 def simple_math
   puts "What is the first number"
   first_number = Integer(gets.chomp)
-  puts "What is the second number?"
+  puts "What rubis the second number?"
   second_number = Integer(gets.chomp)
   puts first_number + second_number
   puts first_number - second_number
