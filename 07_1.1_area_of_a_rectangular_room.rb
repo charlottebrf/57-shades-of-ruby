@@ -83,7 +83,7 @@ def display_area_in_metres(area)
 end
 
 def feet_to_metres(area_in_feet)
-  area_in_feet * 0.09290304
+  (area_in_feet * 0.09290304).round(3)
 end
 
 def contains_digit?(str)
@@ -139,7 +139,7 @@ RSpec.describe "area of a rectangular room" do
     expect(area_in_feet(10, 5)).to eq (50)
   end
   it "converts the area in feet to metres" do
-    expect(feet_to_metres(100)).to eq (9.290304)
+    expect(feet_to_metres(100)).to eq (9.29)
   end
 end
 
