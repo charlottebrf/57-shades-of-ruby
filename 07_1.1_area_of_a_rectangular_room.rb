@@ -86,6 +86,7 @@ def feet_to_metres(area_in_feet)
   (area_in_feet * 0.09290304).round(3)
 end
 
+
 def contains_digit?(str)
   if str =~ /^\d+$/
     true
@@ -98,8 +99,16 @@ def convert_to_number(str)
   str.to_i
 end
 
-
-
+#Stretch work:
+# Create constant 0.09290304
+# classes & objects- how to extend this programme so it's not all living in a file
+# Inheritance model of different objects inside a class:
+#Split into 2 x classes: decide what the objects are & then what their behaviour is, e.g 1. Area class(?)- is the area a feature of a room
+#What purpose is the object serving? How to isolate methods so they can be used together
+#Scalability e.g. area could be a football pitch & a
+# Readme file - Readme template search- how to run the tests & apps- design & organisation
+#Read up on OOD & Classes- write a smaller version of creating classes & using OOD
+#Look at Lucy's bike github example
 
 RSpec.describe "area of a rectangular room" do
   it "announces the area in feet" do
