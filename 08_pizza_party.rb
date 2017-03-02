@@ -38,9 +38,9 @@
 # calculates number of slices(number_of_people, number_of_pizzas)
 # number_of_people / number_of_pizzas
 # *do I use / or %?
-# *"Ensure that the number of pieces comes out even"- does this mean division or is it asking for the result to always be an even number?*
+# *"Ensure that the number of pieces comes out even"- even number & even division
 #
-# rounds number of slices(number_of_slices)
+# rounds number of slices(number_of_slices) ?
 # calculates number of slices.to_i
 # *Double check how to ensure number of slices is rounded to a whole number*
 #
