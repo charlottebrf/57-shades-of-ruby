@@ -77,58 +77,99 @@ def contains_digits?(str)
   end
 end
 
+
 def convert_to_number(str)
   str.to_i
 end
 
-# def contains_floats?(num)
-#   if num % num == 0 #double check my assertions on how to check for a float
-#     true
-#   else
-#     false
-#   end
+def is_an_integer?(num)
+  if num.integer?
+    true
+  else
+    false
+  end
+end
+
+
+def confirms_people_and_pizzas(people, pizzas)
+  "#{people} people with #{pizzas} pizzas"
+end
+
+def converts_odd_to_even(people)
+  if people.odd?
+    people + 1 #unsure this is correct logic?
+  else
+    people
+  end
+end
+
+
+SLICES = 8
+
+def calculates_total_pizza_slices(pizzas)
+  total_slices = pizzas * SLICES
+  total_slices
+end
+
+def calculates_number_of_pizza_slices_per_person(people, pizzas)
+  calculates_total_pizza_slices(pizzas) / people #round -rem / div
+end
+
+def calculates_number_of_left_over_slices(people, pizzas)
+  remainder = calculates_number_of_pizza_slices_per_person(people, pizzas) * people
+  calculates_total_pizza_slices(pizzas) - remainder
+end
+
+def displays_number_of_left_over_slices(left_over_slices)
+  "There are #{left_over_slices} leftover pieces."
+end
+
+# def gives_error_message(people, pizzas)
+#not happy path! If people enter a 0, or flots or strings od letters/ characters etc
 # end
 
-def confirms_people_and_pizzas(people,pizzas)
-  puts "#{number_of_people} with #{number_of_pizzas}"
-end
-#
-# confirm number of people & pizzas
-# puts "#{number_of_people} with #{number_of_pizzas}"
 
- RSpec.describe "evenly divides people between people for a pizza party" do
-   it "returns true if the string contains digits" do
-     expect(contains_digits?("123")).to eq (true)
-   end
- it "returns false if the string contains letters or characters" do
-   expect(contains_digits?("abc")).to eq (false)
- end
- it "converts a string to a number" do
-   expect(convert_to_number("12")).to eq (12)
- end
- it "returns true if number is an integer" do
-   expect(contains_floats?(3)).to eq (true)
- end
- # it "returns false if number is a float" do
- #   expect(contains_floats?(1.1)).to eq (false)
- # end
- # it "confirms number of people and pizzas" do
- #   expect(confirms_people_and_pizzas)
- # end #use regex rspecc
- #   it "announces the area in metres" do
- #     expect {display_area_in_metres(10)}.to output(/10 square metres/).to_stdout
- #   end
 
+RSpec.describe "evenly divides people between people for a pizza party" do
+  it "returns true if the string contains digits" do
+    expect(contains_digits?("123")).to eq (true)
+  end
+  it "returns false if the string contains letters or characters" do
+    expect(contains_digits?("abc")).to eq (false)
+  end
+  it "converts a string to a number" do
+    expect(convert_to_number("12")).to eq (12)
+  end
+  it "returns true if number is an integer" do
+    expect(is_an_integer?(3)).to eq (true)
+  end
+  it "returns false if number is a float" do
+    expect(is_an_integer?(1.1)).to eq (false)
+  end
+  it "confirms number of people and pizzas" do
+    expect(confirms_people_and_pizzas(4, 2)).to eq ("4 people with 2 pizzas")
+  end
+  it "converts an odd number to an even number " do
+    expect(converts_odd_to_even(7)).to eq (8)
+  end
+  it "returns an even number" do
+    expect(converts_odd_to_even(8)).to eq (8)
+  end
+  it "calculates total number of pizza slices for given number of pizzas" do
+    expect(calculates_total_pizza_slices(2)).to eq (16)
+  end
+  it "calculates the number of pizza slices for each person" do
+    expect(calculates_number_of_pizza_slices_per_person(8, 2)).to eq (2)
+  end
+  it "calculates the number of left over slices for an even number of people" do
+    expect(calculates_number_of_left_over_slices(8, 2)).to eq (0)
+  end
+  # it "calculates the number of left over slices for an odd number of people" do
+  #   expect(calculates_number_of_left_over_slices(9, 2)).to eq (0)
+  # end
 end
-#   it "announces the area in feet" do
-#     expect {display_area_in_feet(10) }.to output(/10 square feet/).to_stdout
-#   end
-#   it "announces the area in metres" do
-#     expect {display_area_in_metres(10)}.to output(/10 square metres/).to_stdout
-#   end
-#   it "confirms the dimensions" do
-#     expect {confirms_dimensions(10, 5)}.to output(/10 feet by 5 feet/).to_stdout
-#   end
-#   it "returns true if the string contains a digit in the range 0-9" do
-#     expect(contains_digit?("3")).to eq (true)
-#   end
+
+  #use regex rspecc
+  #   it "announces the area in metres" do
+  #     expect {display_area_in_metres(10)}.to output(/10 square metres/).to_stdout
+  #   end
