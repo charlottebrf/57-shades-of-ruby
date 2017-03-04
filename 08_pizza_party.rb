@@ -60,22 +60,20 @@ def main
 end
 
 def main_programme(people, pizzas)
-  if !contains_digits?(people) && !contains_digits?(pizzas)
+  if are_valid?(people, pizzas) == false
     puts "The number of people or pizzas you entered was incorrect. Please enter them again, ensuring they are whole numbers"
     return
   end
+  converted_people = convert_to_number(people)
+  converted_pizzas = convert_to_number(pizzas)
 
-  if converted_people = convert_to_number(people)
-    converted_pizzas = convert_to_number(pizzas)
+  confirms_people_and_pizzas(converted_people, converted_pizzas)
 
-    confirms_people_and_pizzas(converted_people, converted_pizzas)
+  slice_per_person = calculates_number_of_pizza_slices_per_person(converted_people, converted_pizzas)
+  left_over_slices = calculates_number_of_left_over_slices(converted_people, converted_pizzas)
 
-    slice_per_person = calculates_number_of_pizza_slices_per_person(converted_people, converted_pizzas)
-    left_over_slices = calculates_number_of_left_over_slices(converted_people, converted_pizzas)
-
-    displays_number_of_slices_per_person(slice_per_person)
-    displays_number_of_left_over_slices(left_over_slices)
-  end
+  displays_number_of_slices_per_person(slice_per_person)
+  displays_number_of_left_over_slices(left_over_slices)
 end
 
 def number_of_people
@@ -88,8 +86,18 @@ def number_of_pizzas
   gets.chomp
 end
 
+def are_valid?(people, pizzas)
+  if !contains_digits?(people) || !contains_digits?(pizzas)
+    false
+  else
+    true
+  end
+end
+
 def contains_digits?(str)
-  if str =~ /^\d+$/
+  if str == "0"
+    false
+  elsif str =~ /^\d+$/
     true
   else
     false
@@ -101,7 +109,7 @@ def convert_to_number(str)
 end
 
 def confirms_people_and_pizzas(people, pizzas)
-  "#{people} people with #{pizzas} pizzas"
+  puts "#{people} people with #{pizzas} pizzas"
 end
 
 SLICES = 8
@@ -111,6 +119,7 @@ def calculates_total_pizza_slices(pizzas)
   total_slices
 end
 
+#error message if there's 0
 def calculates_number_of_pizza_slices_per_person(people, pizzas)
   slice_per_person = calculates_total_pizza_slices(pizzas) / people
   slice_per_person = slice_per_person.round
@@ -122,7 +131,7 @@ def calculates_number_of_pizza_slices_per_person(people, pizzas)
 end
 
 def displays_number_of_slices_per_person(slice_per_person)
-  "Each person gets #{slice_per_person} pieces of pizza."
+  puts "Each person gets #{slice_per_person} pieces of pizza."
 end
 
 def calculates_number_of_left_over_slices(people, pizzas)
@@ -131,45 +140,56 @@ def calculates_number_of_left_over_slices(people, pizzas)
 end
 
 def displays_number_of_left_over_slices(left_over_slices)
-  "There are #{left_over_slices} leftover pieces."
+  puts "There are #{left_over_slices} leftover pieces."
 end
 
 main()
 
 
-
-# RSpec.describe "evenly divides people between people for a pizza party" do
-#   it "returns true if the string contains digits" do
-#     expect(contains_digits?("123")).to eq (true)
-#   end
-#   it "returns false if the string contains letters or characters" do
-#     expect(contains_digits?("abc")).to eq (false)
-#   end
-#   it "converts a string to a number" do
-#     expect(convert_to_number("12")).to eq (12)
-#   end
-#   it "confirms number of people and pizzas" do
-#     expect(confirms_people_and_pizzas(4, 2)).to eq ("4 people with 2 pizzas")
-#   end
-#   it "calculates total number of pizza slices for given number of pizzas" do
-#     expect(calculates_total_pizza_slices(2)).to eq (16)
-#   end
-#   it "calculates number of slices per person for an even number of people" do
-#     expect(calculates_number_of_pizza_slices_per_person(8, 2)).to eq (2)
-#   end
-#   it "calculates the number of slices per person for an odd number of people" do
-#     expect(calculates_number_of_pizza_slices_per_person(5, 2)).to eq (2)
-#   end
-#   it "displays the number of slices per person" do
-#     expect(displays_number_of_slices_per_person(2)).to eq ("Each person gets 2 pieces of pizza.")
-#   end
-#   it "calculates the number of left over slices for an even number of people" do
-#     expect(calculates_number_of_left_over_slices(8, 2)).to eq (0)
-#   end
-#   it "calculates the number of left over slices for an odd number of people" do
-#     expect(calculates_number_of_left_over_slices(5, 2)).to eq (6)
-#   end
-#   it "displays the number of slices left over" do
-#     expect(displays_number_of_left_over_slices(6)).to eq ("There are 6 leftover pieces.")
-#   end
-# end
+RSpec.describe "evenly divides people between people for a pizza party" do
+  it "returns true if the string contains digits" do
+    expect(contains_digits?("123")).to eq (true)
+  end
+  it "returns false if the string is 0" do
+    expect(contains_digits?("0")).to eq (false)
+  end
+  it "returns false if the string contains a float" do
+    expect(contains_digits?("1.1")).to eq (false)
+  end
+  it "returns false if the string contains letters or characters" do
+    expect(contains_digits?("abc")).to eq (false)
+  end
+  it "returns false if either of the strings are not a number" do
+    expect(are_valid?(1.1, 1)).to eq (false)
+  end
+  it "returns false if either of the strings are not a number" do
+    expect(are_valid?(1.1, 3.1)).to eq (false)
+  end
+  it "converts a string to a number" do
+    expect(convert_to_number("12")).to eq (12)
+  end
+  it "confirms number of people and pizzas" do
+    expect{ confirms_people_and_pizzas(4, 2) }.to output(/4 people with 2 pizzas/).to_stdout
+  end
+  it "calculates total number of pizza slices for given number of pizzas" do
+    expect(calculates_total_pizza_slices(2)).to eq (16)
+  end
+  it "calculates number of slices per person for an even number of people" do
+    expect(calculates_number_of_pizza_slices_per_person(8, 2)).to eq (2)
+  end
+  it "calculates the number of slices per person for an odd number of people" do
+    expect(calculates_number_of_pizza_slices_per_person(5, 2)).to eq (2)
+  end
+  it "displays the number of slices per person" do
+    expect{ displays_number_of_slices_per_person(2) }.to output(/2 pieces/).to_stdout
+  end
+  it "calculates the number of left over slices for an even number of people" do
+    expect(calculates_number_of_left_over_slices(8, 2)).to eq (0)
+  end
+  it "calculates the number of left over slices for an odd number of people" do
+    expect(calculates_number_of_left_over_slices(5, 2)).to eq (6)
+  end
+  it "displays the number of slices left over" do
+    expect{ displays_number_of_left_over_slices(6) }.to output(/6 leftover/).to_stdout
+  end
+end
