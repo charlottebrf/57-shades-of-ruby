@@ -32,48 +32,57 @@
 #displays gallons of paint needed(number_of_gallons, area_square_feet)
 #puts "You will need to purchase #{number_of_gallons} gallons of paint to cover #{area_square_feet)} square feet."
 
-def gets_length
-  puts "Please input the length in feet"
-  length = gets.chomp
-end
+# def gets_length
+#   puts "Please input the length in feet"
+#   length = gets.chomp
+# end
+#
+# def gets_width
+#   puts "Please input the width in feet"
+#   length = gets.chomp
+# end
+#
+# def are_valid?(length, width)
+#   if !contains_digits(length)) || !contains_digits?(width)
+#     false
+#   else
+#     true
+#   end
+# end
+#
+# def contains_digits?(str)
+#   if str == "0"
+#     false
+#   elsif str =~ /^\d+$/
+#     true
+#   else
+#     false
+#   end
+# end
+#
+# def convert_to_number(str)
+#   str.to_i
+# end
+#
+# def calculate_area_of_ceiling (length, width)
+#   length * width
+# end
 
-def gets_width
-  puts "Please input the width in feet"
-  length = gets.chomp
-end
-
-def are_valid?(length, width)
-  if !contains_digits(length)) || !contains_digits?(width)
-    false
-  else
-    true
-  end
-end
-
-def contains_digits?(str)
-  if str == "0"
-    false
-  elsif str =~ /^\d+$/
-    true
-  else
-    false
-  end
-end
-
-def convert_to_number(str)
-  str.to_i
-end
-
-def calculate_area_of_ceiling
-  length * width
-end
-
-def calculate_gallons
+def calculate_gallons(calculate_area_of_ceiling)
   calculate_area_of_ceiling / 350
   # assume one gallon covers 350 square feet.
   # Display the number of gallons needed to paint the ceiling as a whole number.
 end
 
-def displays_gallons(calculate_gallons, calculate_area_of_ceiling)
-  #puts "You will need to purchase #{number_of_gallons} gallons of paint to cover #{area_square_feet)} square feet."
+ def displays_gallons(calculate_gallons, calculate_area_of_ceiling)
+  puts "You will need to purchase #{calculate_gallons} gallons of paint to cover #{area_square_feet)} square feet."
+end
+
+RSpec.describe "creates a paint calculator" do
+  it "calculates the gallons on paint needed for the area" do
+    expect(calculate_gallons(500)).to eq (1)
+  end
+  it "displays the number of gallons needed for the area of the paint party" do
+    expect{ displays_gallons(1, 500)) }.to output(/1 gallons of paint to cover 500/).to_stdout
+  end
 end
