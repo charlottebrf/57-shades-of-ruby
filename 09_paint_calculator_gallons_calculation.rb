@@ -72,10 +72,12 @@ class Gallons
   end
 
   def number_gallons
+
     gallons = []
     [350,700,1050].each do |multiples_of_gallons|
       while @area <= multiples_of_gallons
         gallons.push(1)
+        area += multiples_of_gallons #is this incorrect?
       end
     p gallons
   end
