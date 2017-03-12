@@ -72,57 +72,7 @@ def calculate_area_of_ceiling(length, width)
   length * width
 end
 
- # def calculate_gallons(area)
- #   if area <= 350
- #     1
- #   elsif area <= 700
- #     2
- #   elsif area <= 1050
- #     3
- #   end
- # end
-
-
-Gallons = 350
- def calculate_gallons(area)
-   if area <= 350
-     1
-   elsif area <= 700
-     2
-   elsif area <= 1050
-     3
-   end
- end
- #enumerate in ruby
-
-#pseudocode: calculate_gallons
-# i need to iterate over each loop to check if it's <= 350 & enumerate each time by 350 to check
-# def looping(num)
-#   new_num = 0
-#   num.each do |x|
-#     new_num = new_num + 1
-#   end
-#   return new_num
-# end
-#
-# num = ([7,6,5,4,3,2,1])
-# looping(num)
-def calculate_gallons(area)
-  Gallons = 350
-  ouput = 1
-  gallons_multiple = Gallons + Gallons
-  output = output + output
-
-  while area <= gallons_multiple
-    output
-  end
-  return output
-end
-
-
-
-
-
+#for paint calculator math separated into separate file 
 
 # def displays_gallons(calculate_gallons, calculate_area_of_ceiling)
 #   puts "You will need to purchase #{calculate_gallons} gallons of paint to cover #{area_square_feet)} square feet."
