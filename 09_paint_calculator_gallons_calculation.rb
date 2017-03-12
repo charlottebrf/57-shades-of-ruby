@@ -1,14 +1,4 @@
 
- # def calculate_gallons(area)
- #   if area <= 350
- #     1
- #   elsif area <= 700
- #     2
- #   elsif area <= 1050
- #     3
- #   end
- # end
-
 #
 # Gallons = 350
 #  def calculate_gallons(area)
@@ -83,15 +73,13 @@ class Gallons
 
   def number_gallons
     gallons = []
-
-    [350,700,1050,1400,1750,2010,2460].each do |multiples_of_gallons|
-      while @area >= multiples_of_gallons
-        gallons.push(multiples_of_gallons)
-        @area -= multiples_of_gallons
+    [350,700,1050].each do |multiples_of_gallons|
+      while @area <= multiples_of_gallons
+        gallons.push(1)
       end
-    end
     p gallons
   end
+
 end
 
 
