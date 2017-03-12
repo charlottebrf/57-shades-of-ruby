@@ -38,6 +38,8 @@
 #   end
 # end
 
+
+
 # gallons = 350
 # iteration_number = 0
 # gallons * iteration_number
@@ -65,29 +67,30 @@
 #   return output
 # end
 
-class Gallons
-
-  def initialize(area)
-    @area = area
-  end
-
-  def number_gallons
-
-    gallons = []
-    [350,700,1050].each do |multiples_of_gallons|
-      while @area <= multiples_of_gallons
-        gallons.push(1)
-        area += multiples_of_gallons #is this incorrect?
-      end
-    p gallons
-  end
-
-end
-
-
-RSpec.describe "Gallons" do
-  it "given an area less than 350 should return 1" do
-    area1 = Gallons.new(280)
-    expect(area1.number_gallons).to eq [1]
-  end
-end
+# class Gallons
+#
+#   def initialize(area)
+#     @area = area
+#   end
+#
+#   def number_gallons
+#
+#     gallons = 0
+#     [350,700,1050].each do |multiples_of_gallons|
+#       while @area <= multiples_of_gallons
+#         gallons += 1
+#       end
+#     puts gallons
+#   end
+#   end
+#
+# #doesn't matter how I change value of area gallons is still being returned as initial
+# end
+#
+#
+# RSpec.describe "Gallons" do
+#   it "given an area less than 350 should return 1" do
+#     area1 = Gallons.new(280)
+#     expect(area1.number_gallons).to eq 1
+#   end
+# end
