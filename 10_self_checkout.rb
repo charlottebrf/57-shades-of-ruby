@@ -63,6 +63,50 @@
 #
 # main programme
 # adds all programmes together & runs them
+#
+# 2 x classes to refactor code?
+# class CostAndQuantity
+#
+#   def initialize(price, quantity)
+#     @price = price
+#     @quantity = quantity
+#   end
+#
+#   def gets_price(price)
+#     puts "Enter the price of item 1:"
+#     @price = gets.chomp
+#     puts "Enter the price of item 2:"
+#     @price = gets.chomp
+#     puts "Enter the price of item 3:"
+#     @price = gets.chomp
+#   end
+#
+#   def gets_quantity(quantity)
+#     puts "Enter the quantity of item 1:"
+#     @quantity = gets.chomp
+#     puts "Enter the quantity of item 2:"
+#     @quantity = gets.chomp
+#     puts "Enter the quantity of item 3:"
+#     @quantity = gets.chomp
+#   end
+# #unsure this makes correct use of gets.chomp & @instance variables
+# end
+#
+# class Display
+#
+#   def initialize(subtotal, tax, total)
+#     @subtotal = subtotal
+#     @tax = tax
+#     @total = total
+#   end
+#
+#   def displays (subtotal, tax, total)
+#     puts "Subtotal: $#{subtotal}"
+#     puts "Tax: $#{tax}"
+#     puts "Total: $#{total}"
+#   end
+#
+# end
 
 
 def price_of_item_1
@@ -110,6 +154,8 @@ def contains_digits?(str)
   if str == "0"
     false
   elsif str =~ /^\d+$/ #adapt regex for a float number /^\d\.\d+$/
+
+    # (([1-9][0-9]*\.?[0-9]*)|(\.[0-9]+))([Ee][+-]?[0-9]+)?
     true
   else
     false
@@ -164,7 +210,7 @@ def displays_subtotal(subtotal)
 end
 
 def displays_tax(tax)
-  puts "Tax: $#{taxl}"
+  puts "Tax: $#{tax}"
 end
 
 def displays_total(total)
