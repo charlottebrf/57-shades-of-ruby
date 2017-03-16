@@ -63,146 +63,85 @@
 #
 # main programme
 # adds all programmes together & runs them
-#
-# 2 x classes to refactor code?
-# class CostAndQuantity
-#
-#   def initialize(price, quantity)
-#     @price = price
-#     @quantity = quantity
-#   end
-#
-#   def gets_price(price)
-#     puts "Enter the price of item 1:"
-#     @price = gets.chomp
-#     puts "Enter the price of item 2:"
-#     @price = gets.chomp
-#     puts "Enter the price of item 3:"
-#     @price = gets.chomp
-#   end
-#
-#   def gets_quantity(quantity)
-#     puts "Enter the quantity of item 1:"
-#     @quantity = gets.chomp
-#     puts "Enter the quantity of item 2:"
-#     @quantity = gets.chomp
-#     puts "Enter the quantity of item 3:"
-#     @quantity = gets.chomp
-#   end
-# #unsure this makes correct use of gets.chomp & @instance variables
-# end
-#
-# class Display
-#
-#   def initialize(subtotal, tax, total)
-#     @subtotal = subtotal
-#     @tax = tax
-#     @total = total
-#   end
-#
-#   def displays (subtotal, tax, total)
-#     puts "Subtotal: $#{subtotal}"
-#     puts "Tax: $#{tax}"
-#     puts "Total: $#{total}"
-#   end
-#
-# end
 
+#Domain knowledge:
+#does it make sense within the code
+# create a class that allows me to access price & quantity
+#
+# within that class create a
 
-def price_of_item_1
-  puts "Enter the price of item 1:"
-    gets.chomp
+#Item: what it should be doing
+#Creating Item
+#Do math on items
+
+class Item
+  def initialize(price, quantity)
+    @price = price
+    @quantity = quantity
+  end
+
+  def subtotal
+    (@price * @quantity).round(2)
+  end
+
+  Tax = 5.5
+  def tax
+    ((subtotal() / 100) * Tax).round(2)
+  end
+
+  def totals
+    (subtotal + tax).round(2)
+  end
 end
 
-def quantity_of_item_1
-  puts "Enter the quantity of item 1:"
-    gets.chomp
+
+def get_item(number)
+  price = price_of_item(number)
+  quantity = quantity_of_item(number)
+  Item.new(price, quantity)
 end
 
-def price_of_item_2
-  puts "Enter the price of item 2:"
-    gets.chomp
+def quantity_of_item(number)
+  puts "Enter the quantity of item #{number}:"
+  gets.chomp.to_f
 end
 
-def quantity_of_item_2
-  puts "Enter the quantity of item 2:"
-    gets.chomp
+def price_of_item(number)
+  puts "Enter the price of item #{number}:"
+  gets.chomp.to_f
 end
 
-def price_of_item_3
-  puts "Enter the price of item 3:"
-    gets.chomp
-end
-
-def quantity_of_item_3
-  puts "Enter the quantity of item 3:"
-    gets.chomp
-end
 
 def main
-  price_1 = price_of_item_1
-  quantity_1 = quantity_of_item_1
-  price_2 = price_of_item_2
-  quantity_2 = quantity_of_item_2
-  price_3 = price_of_item_3
-  quantity_3 = quantity_of_item_3
-  main_programme(price_1, quantity_1, price_2, quantity_2, price_3, quantity_3)
+  item1 = get_item(1)
+  item2 = get_item(2)
+  item3 = get_item(3)
+
+  subtotal = subtotal( [item1, item2, item3] )
+  displays_subtotal(subtotal)
+  tax = tax( [item1, item2, item3] )
+  displays_tax(tax)
+  totals = totals( [item1, item2, item3] )
+  displays_total(totals)
 end
 
+def subtotal(items)
+  items.map do |item|
+    subtotal = item.subtotal
+  end
+  puts subtotal
+end
 
-def contains_digits?(str)
-  if str == "0"
-    false
-  elsif str =~ /^\d+$/ #adapt regex for a float number /^\d\.\d+$/
-
-    # (([1-9][0-9]*\.?[0-9]*)|(\.[0-9]+))([Ee][+-]?[0-9]+)?
-    true
-  else
-    false
+def tax(items)
+  items.map do |item|
+    item.tax
   end
 end
 
-def are_valid?(price_1, quantity_1, price_2, quantity_2, price_3, quantity_3)
-  if !contains_digits?(price_1) || !contains_digits?(quantity_1) || !contains_digits?(price_2) || !contains_digits?(quantity_2) || !contains_digits?(price_3) || !contains_digits?(quantity_3)
-    false
-  else
-    true
+def totals(items)
+  items.map do |item|
+    item.totals
   end
-end
-
-def convert_to_number(str)
-  str.to_i
-end
-
-def subtotal_1(price_1, quantity_1)
-  price_1 * quantity_1
-end
-
-def subtotal_2(price_2, quantity_2)
-  price_2 * quantity_2
-end
-
-def subtotal_3(price_3, quantity_3)
-  price_3 * quantity_3
-end
-
-def subtotal_123(subtotal_1, subtotal_2, subtotal_3)
-  subtotal = subtotal_1 + subtotal_2 + subtotal_3
-  if subtotal.integer?
-    true
-    subtotal
-  else
-  subtotal = subtotal.round(2)
-end
-end
-
-def calculates_tax(subtotal)
-  # turn total_sub_total into a float to ensure division is correct
-   ((subtotal / 100) * 5.5).round(2)
-end
-
-def calculates_total(subtotal, tax)
-  (subtotal + tax).round(2)
 end
 
 def displays_subtotal(subtotal)
@@ -213,50 +152,34 @@ def displays_tax(tax)
   puts "Tax: $#{tax}"
 end
 
-def displays_total(total)
-  puts "Total: $#{total}"
+def displays_total(totals)
+  puts "Total: $#{totals}"
 end
 
+main
 
 
 RSpec.describe "self checkout programme" do
-  it "returns true if string contains digits" do
-    expect(contains_digits?("123")).to eq true
+  it "calculates subtotal of item" do
+    item1 = Item.new(3, 4)
+    expect(item1.subtotal).to eq 12
   end
-  it "returns true if string doesn't contain digits" do
-    expect(contains_digits?("&8%4£kg")).to eq false
-  end
-  it "returns false if any of the strings contain an invalid input" do
-    expect(are_valid?("&8%4£kg", "5", "8", "3", "2.0", "9")).to eq false
-  end
-  it "returns true if the strings contain valid input" do
-    expect(are_valid?("14", "5", "8", "3", "2", "9")).to eq true
-  end
-  it "converts a string to a number" do
-    expect(convert_to_number("9")).to eq 9
-  end
-  it "calculates subtotal of item 1" do
-    expect(subtotal_1(3, 4)).to eq 12
-  end
-  it "calculates subtotal of item 2" do
-    expect(subtotal_2(5, 5)).to eq 25
-  end
-  it "calculates subtotal of item 3" do
-    expect(subtotal_3(6, 3)).to eq 18
-  end
-  it "calculates subtotal of all 3 items" do
-    expect(subtotal_123(12, 25, 18)).to eq 55
+  it "rounds the subtotal to 2 decimal places" do
+    item1 = Item.new(1.666, 1)
+    item2 = Item.new(2, 1)
+    item3 = Item.new(3, 2)
+    expect(item1.subtotal(item)).to eq 9.67
   end
   it "calculates 5.5% of tax according to sub total" do
-    expect(calculates_tax(10.00)).to eq 0.55
-    expect(calculates_tax(25.00)).to eq 1.38
-    expect(calculates_tax(55.00)).to eq 3.03
+    item1 = Item.new(10,1)
+    expect(item1.tax).to eq 0.55
   end
   it "calculates total of subtotal added to the tax" do
-    expect(calculates_total(55.00, 3.03)).to eq 58.03
+    item2 = Item.new(55, 1)
+    expect(item2.totals).to eq 58.03
   end
   it "displays the subtotal" do
-    expect{ displays_subtotal(55) }.to output(/Subtotal: $55 /).to_stdout
+    expect{ displays_subtotal(55) }.to output(/Subtotal: \$55/).to_stdout
   end
   # it "re" do
   #   expect{ main_programme("5", "20") }.to output(/purchase 1 gallon of paint to cover 100 /).to_stdout
