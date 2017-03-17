@@ -70,7 +70,7 @@ class CurrencyExchanger
     (@euros_amount * @euros_exchange_rate / @dollars_exchange_rate).round(2)
   end
 
-  def displays_exchange(calculate_dollars))
+  def displays_dollars(calculate_dollars)
     puts "#{@euros_amount} euros at an exchange rate of #{@euros_exchange_rate} is #{calculate_dollars} U.S. dollars"
   end
 
@@ -83,19 +83,60 @@ end
 
 def gets_euros_exchange_rate
   puts "What is the exchange rate of the euros??"
-  euros_amount = gets.chomp
+  euros_exchange_rate = gets.chomp
 end
 
-def data_validation
+def main #test
+  euros_amount = gets_euros()
+  euros_exchange_rate = gets_euros_exchange_rate()
+  dollars_exchange_rate = gets_exchange_rate_dollars()
+  CurrencyExchanger.new(euros_amount, euros_exchange_rate, dollars_exchange_rate)
+end
+
+def data_validation #complete & test
   #regex
   #boolean
 end
 
-def exchange_rate_dollars
-  dollars_exchange_rate = gets.chomp
-  #how do I get this & store it if the exchange rate is changing all the time ? API or something?
+
+
+class DollarsExchange
+  def initialize(dollars_exchange_rate)
+    @dollars_exchange_rate = dollars_exchange_rate
+  end
+
+  require 'json' #using json to store the dollars exchange rate
+
+  def gets_exchange_rate_dollars #can you use GET/ post requests in a method??
+    GET /latest?symbols=USD
+    Host: api.fixer.io
+
+    post /latest?symbols
+    @dollars_exchange_rate = DollarsExchange.new(dollars_exchange: params["dollars_exchange"])
+    @dollars_exchange_rate.save
+  end
+
 end
 
 
 
-# display: #{euros} euros at an exchange rate of #{exchange_rate} is #{US_dollars} U.S. dollars
+  dollars_exchange_rate = gets.chomp
+  # http://fixer.io/
+  # http://api.fixer.io/latest?symbols=USD,GBP
+end
+
+
+RSpec.describe "currency conversion programme" do
+  it "calculates amount of dollars converted from euros" do
+    amount1 = CurrencyExchanger.new(20, 1.08, 0.93)
+    expect(amount1.calculate_dollars).to eq 23.23
+  end
+  it "displays the amount of dollars converted from euros" do
+    amount1 = CurrencyExchanger.new(20, 1.08, 0.93)
+    expect{ amount1.displays_dollars(23.23) }.to output( /20 euros at an exchange rate of 1.08 is 23.23/ ).to_stdout
+  end
+  it "gets the exchange rate of the dollars" do
+
+  end
+
+end
