@@ -58,16 +58,28 @@
 # store exchange_rate
 #CurrencyExchanger.new(euros, exchange_rate)
 
+require "json"
+require "net/http"
+require "uri"
+
+
+def main_programme(euros_amount, euros_exchange_rate, dollars_exchange_rate)
+  euros_amount = gets_euros()
+  euros_exchange_rate = gets_euros_exchange_rate()
+  CurrencyExchanger.new.calculate_dollars
+  CurrencyExchanger.new.displays_dollars
+end
+
 class CurrencyExchanger
 
-  def initialize(euros_amount, euros_exchange_rate, dollars_exchange_rate)
+  def initialize(euros_amount, euros_exchange_rate)
     @euros_amount = euros_amount
     @euros_exchange_rate = euros_exchange_rate
-    @dollars_exchange_rate = dollars_exchange_rate
   end
 
   def calculate_dollars
-    (@euros_amount * @euros_exchange_rate / @dollars_exchange_rate).round(2)
+    dollars_exchange_rate = DollarsExchange.new.gets_exchange_rate_dollars
+    (@euros_amount * @euros_exchange_rate / dollars_exchange_rate).round(2)
   end
 
   def displays_dollars(calculate_dollars)
@@ -90,53 +102,35 @@ def main #test
   euros_amount = gets_euros()
   euros_exchange_rate = gets_euros_exchange_rate()
   dollars_exchange_rate = gets_exchange_rate_dollars()
-  CurrencyExchanger.new(euros_amount, euros_exchange_rate, dollars_exchange_rate)
+  CurrencyExchanger.new(euros_amount, euros_exchange_rate)
 end
-
-def data_validation #complete & test
-  #regex
-  #boolean
-end
-
 
 
 class DollarsExchange
-  def initialize(dollars_exchange_rate)
-    @dollars_exchange_rate = dollars_exchange_rate
-  end
 
-  require 'json' #using json to store the dollars exchange rate
-
-  def gets_exchange_rate_dollars #can you use GET/ post requests in a method??
-    GET /latest?symbols=USD
-    Host: api.fixer.io
-
-    post /latest?symbols
-    @dollars_exchange_rate = DollarsExchange.new(dollars_exchange: params["dollars_exchange"])
-    @dollars_exchange_rate.save
+  def gets_exchange_rate_dollars
+    uri = URI('http://api.fixer.io/latest?symbols=USD,EUR')
+    answer = Net::HTTP.get(uri)
+    exchanges = JSON.parse(answer)
+    exchanges["rates"]["USD"]
+    dollars_exchange_rate = exchanges
   end
 
 end
 
 
-
-  dollars_exchange_rate = gets.chomp
-  # http://fixer.io/
-  # http://api.fixer.io/latest?symbols=USD,GBP
-end
-
-
-RSpec.describe "currency conversion programme" do
-  it "calculates amount of dollars converted from euros" do
-    amount1 = CurrencyExchanger.new(20, 1.08, 0.93)
-    expect(amount1.calculate_dollars).to eq 23.23
-  end
-  it "displays the amount of dollars converted from euros" do
-    amount1 = CurrencyExchanger.new(20, 1.08, 0.93)
-    expect{ amount1.displays_dollars(23.23) }.to output( /20 euros at an exchange rate of 1.08 is 23.23/ ).to_stdout
-  end
-  it "gets the exchange rate of the dollars" do
-
-  end
-
-end
+#
+# RSpec.describe "currency conversion programme" do
+#   it "calculates amount of dollars converted from euros" do
+#     amount1 = CurrencyExchanger.new(20, 1.08)
+#     expect(amount1.calculate_dollars).to eq 23.23
+#   end
+#   it "displays the amount of dollars converted from euros" do
+#     amount1 = CurrencyExchanger.new(20, 1.08)
+#     expect{ amount1.displays_dollars(23.23) }.to output( /20 euros at an exchange rate of 1.08 is 23.23/ ).to_stdout
+#   end
+#   it "gets the exchange rate of the dollars" do
+#
+#   end
+#
+# end
