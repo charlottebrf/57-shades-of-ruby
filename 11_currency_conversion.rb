@@ -63,11 +63,12 @@ require "net/http"
 require "uri"
 
 
-def main_programme(euros_amount, euros_exchange_rate, dollars_exchange_rate)
-  euros_amount = gets_euros()
-  euros_exchange_rate = gets_euros_exchange_rate()
-  CurrencyExchanger.new.calculate_dollars
-  CurrencyExchanger.new.displays_dollars
+def main_programme()
+  x = gets_euros()
+  y = gets_euros_exchange_rate()
+  exchanger = CurrencyExchanger.new(x, y)
+  converted = exchanger.calculate_dollars
+  exchanger.displays_dollars(converted)
 end
 
 class CurrencyExchanger
@@ -79,7 +80,7 @@ class CurrencyExchanger
 
   def calculate_dollars
     dollars_exchange_rate = DollarsExchange.new.gets_exchange_rate_dollars
-    (@euros_amount * @euros_exchange_rate / dollars_exchange_rate).round(2)
+    (@euros_amount.to_f * @euros_exchange_rate.to_f / dollars_exchange_rate.to_f).round(2)
   end
 
   def displays_dollars(calculate_dollars)
@@ -98,14 +99,6 @@ def gets_euros_exchange_rate
   euros_exchange_rate = gets.chomp
 end
 
-def main #test
-  euros_amount = gets_euros()
-  euros_exchange_rate = gets_euros_exchange_rate()
-  dollars_exchange_rate = gets_exchange_rate_dollars()
-  CurrencyExchanger.new(euros_amount, euros_exchange_rate)
-end
-
-
 class DollarsExchange
 
   def gets_exchange_rate_dollars
@@ -113,11 +106,11 @@ class DollarsExchange
     answer = Net::HTTP.get(uri)
     exchanges = JSON.parse(answer)
     exchanges["rates"]["USD"]
-    dollars_exchange_rate = exchanges
   end
 
 end
 
+main_programme
 
 #
 # RSpec.describe "currency conversion programme" do
