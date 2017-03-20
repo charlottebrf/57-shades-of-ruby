@@ -36,19 +36,29 @@ class Interest
     @principal_amount = principal_amount
     @rate_of_interest = rate_of_interest
     @number_of_years = number_of_years
-    @interest = calculates_interest
   end
 
   def calculates_interest
-    @interest = @principal_amount(1 + @rate_of_interest * @number_of_years)
+    interest = @principal_amount.to_f * ( 1 + (@rate_of_interest.to_f / 100 * @number_of_years.to_f))
   end
 
-  def displays_interest
-    puts "After #{@number_of_years} at #{@rate_of_interest}, the investment will be worth $#{@interest}."
+  def displays_interest(interest)
+    puts "After #{@number_of_years} years at #{@rate_of_interest}, the investment will be worth $ #{interest}".strip
   end
 
 end
 
+def main_program
+  principal_amount = gets_principal_amount
+  rate_of_interest = gets_rate_of_interest
+  number_of_years = gets_number_of_years
+  investment1 = Interest.new(principal_amount, rate_of_interest, number_of_years)
+  interest = investment1.calculates_interest
+  investment1.displays_interest(interest)
+end
+
+#should these methods be one method in the class with the gets.chomp as an instance variable?
+#Code feels duplicative
 def gets_principal_amount
   puts "Enter the principal amount:"
   principal_amount = gets.chomp
@@ -64,15 +74,16 @@ def gets_number_of_years
   number_of_years = gets.chomp
 end
 
-RSpec.describe "calculates Interest" do
-  it "calculates the interest" do
-    amount1 = Interest.new(1500, 4.3, 4)
-    expect { amount1.calculates_interest }.to output( /1758/ ).to_stdout
-  end
-end
-#   it "displays the amount of dollars converted from euros" do
-#     amount1 = CurrencyExchanger.new(20, 1.08)
-#     expect{ amount1.displays_dollars(23.23) }.to output( /20 euros at an exchange rate of 1.08 is 23.23/ ).to_stdout
+main_program
+# RSpec.describe "calculates Interest" do
+#   it "calculates the interest" do
+#     amount1 = Interest.new(10000, 3.875, 5)
+#     expect { amount1.calculates_interest }.to output( /11937.5/ ).to_stdout
+#     amount2 = Interest.new(1500, 4.3, 4)
+#     expect { amount2.calculates_interest }.to output( /1758/ ).to_stdout
 #   end
-#   it "gets the exchange rate of the dollars" do
+#   it "displays the interest" do
+#     amount1 = Interest.new(10000, 3.875, 5)
+#     expect { amount1.displays_interest(11937.5) }.to output( /After 5 years at 3.875, the investment will be worth \$11937.5/ ).to_stdout
 #   end
+# end
