@@ -86,4 +86,9 @@ main_program
 #     amount1 = Interest.new(10000, 3.875, 5)
 #     expect { amount1.displays_interest(11937.5) }.to output( /After 5 years at 3.875, the investment will be worth \$11937.5/ ).to_stdout
 #   end
+#   it "gets the principal amount" do
+#     expect(gets_principal_amount(10000)).to eq ("10000")
+#     # amount1 = Interest.new(10000, 3.875, 5)
+#     # expect { amount1.gets_principal_amount }.to output( /10000/ ).to_stdout
+#   end
 # end
