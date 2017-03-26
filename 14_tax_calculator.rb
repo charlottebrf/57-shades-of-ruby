@@ -83,7 +83,11 @@ def displays_tax
 end
 
 def calculates_total(order_amount)
-  order_amount.to_f + Tax
+  (order_amount.to_f + Tax).round(1)
+end
+
+def rounds_total(total)
+  total.round(1)
 end
 
 def string_to_float(string)
@@ -105,6 +109,7 @@ def main_program
     displays_total(total)
   else
     total = string_to_float(order_amount)
+    total = rounds_total(total)
     displays_total(total)
   end
 end
