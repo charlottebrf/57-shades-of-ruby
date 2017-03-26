@@ -59,3 +59,52 @@
 #   displays_total(total)
 # end
 # end
+
+def asks_question(question)
+  gets.chomp
+end
+
+def checks_state(state)
+  if state == "WI"
+    true
+  else
+    false
+  end
+end
+
+def displays_subtotal(order_amount)
+  puts "The subtotal is $#{order_amount}"
+end
+
+Tax = 0.55
+def displays_tax
+  puts "The tax is $#{Tax}"
+end
+
+def calculates_total(order_amount)
+  order_amount.to_f + Tax
+end
+
+def total_to_float(order_amount)
+  order_amount.to_f
+end
+
+def displays_total(total)
+  puts "The total is $#{total}"
+end
+
+def main_program
+  order_amount = asks_question("What is the order amount?")
+  state = asks_question("What is the state?")
+  if checks_state(state) == true
+    displays_subtotal(order_amount)
+    displays_tax
+    total = calculates_total
+    displays_total(total)
+  else
+    total = total_to_float(order_amount)
+    displays_total(total)
+  end
+end
+
+main_program
