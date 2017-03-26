@@ -61,6 +61,7 @@
 # end
 
 def asks_question(question)
+  puts question
   gets.chomp
 end
 
@@ -85,8 +86,8 @@ def calculates_total(order_amount)
   order_amount.to_f + Tax
 end
 
-def total_to_float(order_amount)
-  order_amount.to_f
+def string_to_float(string)
+  string.to_f
 end
 
 def displays_total(total)
@@ -97,12 +98,13 @@ def main_program
   order_amount = asks_question("What is the order amount?")
   state = asks_question("What is the state?")
   if checks_state(state) == true
+    order_amount = string_to_float(order_amount)
     displays_subtotal(order_amount)
     displays_tax
-    total = calculates_total
+    total = calculates_total(order_amount)
     displays_total(total)
   else
-    total = total_to_float(order_amount)
+    total = string_to_float(order_amount)
     displays_total(total)
   end
 end
