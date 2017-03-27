@@ -57,33 +57,38 @@
 #
 # end
 
-def prints_message(string)
-  puts string
+def asks_question(question)
+  puts question
+  gets.chomp
 end
 
 def main_program
-  username = prints_message("What is the username")
-  password = prints_message("What is the password?")
+  username = asks_question("What is the username")
+  password = asks_question("What is the password?")
   user1 = PasswordSecurity.new(username, password)
-  boolean = user1.checks_password(password)
-  if boolean == true
-    prints_message("Welcome!")
-  else
-    prints_message("I don't know you.")
-  end
+  user1.displays_message
 end
 
 class PasswordSecurity
 
-  initialize (username, password)
+  def initialize (username, password)
     @username = username
     @password = password
   end
 
+  def displays_message
+    if checks_password == true
+      puts "Welcome!"
+    else
+      puts "I don't know you."
+    end
+  end
+
+
   private
 
   Password = "Password123"
-  def checks_password(@password)
+  def checks_password
     if @password == Password
       true
     else
@@ -92,3 +97,5 @@ class PasswordSecurity
   end
 
 end
+
+main_program
