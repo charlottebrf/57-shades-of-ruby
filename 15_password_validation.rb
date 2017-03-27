@@ -18,44 +18,6 @@
 # Pseudocode:
 # Prompts: Aks question(question)
 # Stores result
-#
-# main program:
-# username = asks_question("What is the username")
-# password = asks_question("What is the password?")
-# user1 = PasswordSecurity.new(username, password)
-# true_or_false = user1.checks_password(password)
-# if checks_password == true
-#   displays_welcome_message
-# else
-#   displays_error_message
-# end
-# end
-#
-# displays_welcome_message
-# puts "Welcome!"
-#
-# displays_error_message
-# puts "I don't know you."
-#
-# class PasswordSecurity
-#
-#   initialize (username, password)
-#     @username = username
-#     @password = password
-#   end
-#
-#
-# private method:
-# StoredPassword = "Password123"
-# def checks_password(password)
-# if password == StoredPassword
-#   true
-# else
-#   false
-# end
-# end
-#
-# end
 
 def asks_question(question)
   puts question
@@ -63,7 +25,7 @@ def asks_question(question)
 end
 
 def main_program
-  username = asks_question("What is the username")
+  username = asks_question("What is the username?")
   password = asks_question("What is the password?")
   user1 = PasswordSecurity.new(username, password)
   user1.displays_message
@@ -77,24 +39,17 @@ class PasswordSecurity
   end
 
   def displays_message
-    if checks_password == true
+    if checks_password
       puts "Welcome!"
     else
       puts "I don't know you."
     end
   end
 
-
-  private
-
-  Password = "Password123"
   def checks_password
-    if @password == Password
-      true
-    else
-      false
-    end
+    @password == "Password123"
   end
+  #action from if statement is a result of making a decision
 
 end
 
