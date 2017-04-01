@@ -31,7 +31,7 @@ def main_program
   last_drink = asks_question("Please input the amount of time since your last drink in minutes:")
   gender = gets_gender(gender)
   person1 = BloodCalculator.new(weight, gender, drinks, volume, last_drink)
-  bac = person1.bac_calculator
+  bac = person1.bac_calculator(volume, weight, last_drink) #giving an error message of wrong number of arguments
   displays_bac(bac)
   if bac <= 0.08
     displays_message("It is legal for you to drive.")
@@ -42,6 +42,9 @@ end
 
 class BloodCalculator
 
+  attr_reader :volume :weight :last_drink
+  #error accessing the values
+
   def initalize(weight, gender, drinks, volume, last_drink)
     @weight = weight
     @gender = gender
@@ -51,7 +54,7 @@ class BloodCalculator
   end
 
   def bac_calculator
-    (@volume.to_f * 5.14 / @weight.to_f * gets_gender) - .015 * @last_drink.to_f
+    bac = (@volume * 5.14 / @weight * gets_gender) - 0.015 * @last_drink
     #need to work out minutes/ hours
     #navigating different measurements/conversions
   end
@@ -68,8 +71,10 @@ end
 
 def asks_question(question)
   puts question
-  gets.chomp
+  gets.chomp.to_f
 end
+
+
 
 def displays_bac(bac)
   puts "Your BAC is #{}"
