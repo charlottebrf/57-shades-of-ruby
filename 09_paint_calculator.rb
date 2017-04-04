@@ -32,23 +32,105 @@
 #displays gallons of paint needed(number_of_gallons, area_square_feet)
 #puts "You will need to purchase #{number_of_gallons} gallons of paint to cover #{area_square_feet)} square feet."
 
+class Displays
 
-def gets_length
-  puts "Please input the length in feet"
-  length = gets.chomp
+attr_reader :gallons :area
+  def initialize(gallons, area)
+    @gallons = gallons
+    @area = area
+  end
+
+  def displays_gallons(@gallons, @area)
+    if @gallons == 1
+      puts "You will need to purchase #{@gallons} gallon of paint to cover #{@area} square feet."
+    else
+      puts "You will need to purchase #{@gallons} gallons of paint to cover #{@area} square feet."
+    end
+  end
+
 end
 
-def gets_width
-  puts "Please input the width in feet"
-  length = gets.chomp
+class Keyboard
+  attr_reader :length, :width
+
+  def initialize(length, width)
+    @length = length
+    @width = width
+  end
+
+  def gets_length
+    puts "Please input the length in feet"
+    @length = gets.chomp
+  end
+
+  def gets_width
+    puts "Please input the width in feet"
+    @width = gets.chomp
+  end
+
 end
 
-def main
-  length = gets_length()
-  width = gets_width()
-  main_programme(length, width)
+class Calculates
+  attr_reader :length, :width
+  def initialize(length, width)
+    @length = length
+    @width = width
+  end
+
+  #is this the best place to have calculates?
+  def convert_to_number(str)
+    @length.to_f
+    @width.to_f
+  end
+
+  def calculate_area_of_ceiling(length, width)
+    length * width
+  end
+
+  Gallons = 350
+  def calculate_gallons(area)
+    gallons, remainder = area.divmod(Gallons)
+    if remainder > 0
+      gallons + 1
+    else
+      gallons
+    end
+  end
+
 end
 
+class ChecksValidity
+  attr_reader :length, :width
+
+  def initialize(length, width)
+    @length = length
+    @width = width
+  end
+
+  def contains_digits?(str)
+    if str == "0"
+      false
+    elsif str =~ /^\d+$/
+      true
+    else
+      false
+    end
+  end
+
+  def are_valid?(length, width)
+    if !contains_digits?(length) || !contains_digits?(width)
+      false
+    else
+      true
+    end
+  end
+
+end
+
+
+class MainProgramme
+
+#does this go into a class?
 def main_programme(length, width)
   gets_length
   gets_width
@@ -67,49 +149,11 @@ def main_programme(length, width)
   displays_gallons(gallons, area)
 end
 
-def contains_digits?(str)
-  if str == "0"
-    false
-  elsif str =~ /^\d+$/
-    true
-  else
-    false
-  end
 end
 
-def are_valid?(length, width)
-  if !contains_digits?(length) || !contains_digits?(width)
-    false
-  else
-    true
-  end
-end
 
-def convert_to_number(str)
-  str.to_i
-end
 
-def calculate_area_of_ceiling(length, width)
-  length * width
-end
 
-Gallons = 350
-def calculate_gallons(area)
-  gallons, remainder = area.divmod(Gallons)
-  if remainder > 0
-    gallons + 1
-  else
-    gallons
-  end
-end
-
-def displays_gallons(gallons, area)
-  if gallons == 1
-      puts "You will need to purchase #{gallons} gallon of paint to cover #{area} square feet."
-    else
-      puts "You will need to purchase #{gallons} gallons of paint to cover #{area} square feet."
-    end
-end
 
 
 RSpec.describe "creates a paint calculator" do
