@@ -45,7 +45,7 @@ class BloodCalculator
   attr_reader :volume :weight :last_drink
   #error accessing the values
 
-  def initalize(weight, gender, drinks, volume, last_drink)
+  def initialize(weight, gender, drinks, volume, last_drink)
     @weight = weight
     @gender = gender
     @drinks = drinks
