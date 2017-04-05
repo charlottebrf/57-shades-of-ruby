@@ -33,15 +33,12 @@
 #puts "You will need to purchase #{number_of_gallons} gallons of paint to cover #{area_square_feet)} square feet."
 
 class DisplaysGallons
-
-attr_reader :gallons, :area
-
   def initialize(gallons, area)
     @gallons = gallons
     @area = area
   end
 
-  def displays_gallons(gallons, area)
+  def displays_gallons
     if @gallons == 1
       puts "You will need to purchase #{@gallons} gallon of paint to cover #{@area} square feet."
     else
@@ -52,78 +49,63 @@ attr_reader :gallons, :area
 end
 
 def main_programme
-  length1 = Keyboard.new(length1,width1).gets_length
-  width1 = Keyboard.new(length1,width1).gets_width
+  keyboard = Keyboard.new
+  length = keyboard.gets_length
+  width = keyboard.gets_width
 
-  #name error
-  checkedvalid = ChecksValidity.new(length1, width1).are_valid?(length1, width1)
+  calculator = Calculator.new(length, width)
+  gallons = calculator.calculate_gallons
+  area = calculator.area
 
-  if checkedvalid == false
-    puts "The length or width you entered was incorrect. Please enter them again, ensuring they are whole numbers"
-    return
-  end
-
-  converted_length1 = Calculates.new(length1, width1).convert_to_number(length1)
-  converted_width1 = Calculates.new(length1, width1).convert_to_number(width1)
-
-  area = calculate_area_of_ceiling(converted_length1, converted_width1)
-  #do I need to create a new instance of this class to call this method? e.g.
-  #area = Calculates.new(converted_length1, converted_width1).calculate_area_of_ceiling(length1, width1)
-
-  gallons = Calculates.new(converted_length1, converted_width1).calculate_gallons(area)
-
-  DisplaysGallons.new(gallons, area).displays_gallons(gallons, area)
+  DisplaysGallons.new(gallons, area).displays_gallons
 end
 
 class Keyboard
-  attr_reader :length, :width
-
-  def initialize(length, width)
-    @length = length
-    @width = width
-  end
-
 #This method does two things it both displays a message to a user & takes its input- so should these therefore be separated into 2 classes & by proxy into 2 methods? That said the one needs the other.
-
   def gets_length
     puts "Please input the length in feet"
-    @length = gets.chomp
+    length = gets.chomp
+    checker = ChecksValidity.new(length)
+    if checker.is_valid?
+      length.to_f
+    else
+      gets_length() #no error message given
+    end
   end
 
   def gets_width
     puts "Please input the width in feet"
-    @width = gets.chomp
+    width = gets.chomp
+    checker = ChecksValidity.new(width)
+    if checker.is_valid?
+      width.to_f
+    else
+      gets_width() #no error message given
+    end
   end
-
 end
 
 
-class Calculates
+class Calculator
   attr_reader :length, :width
   def initialize(length, width)
     @length = length
     @width = width
   end
 
-  #is this the best place to have calculates?
-  def convert_to_number(str)
-    str.to_f
-  end
-
-  def calculate_area_of_ceiling(length, width)
-    length * width
+  def area
+     @length * @width
   end
 
   Gallons = 350
-  def calculate_gallons(area)
-    gallons, remainder = area.divmod(Gallons)
+  def calculate_gallons
+    gallons, remainder = area().divmod(Gallons)
     if remainder > 0
       gallons + 1
     else
       gallons
     end
   end
-
 end
 
 
@@ -132,26 +114,17 @@ end
 class ChecksValidity
   attr_reader :length, :width
 
-  def initialize(length, width)
-    @length = length
-    @width = width
+  def initialize(user_input)
+    @user_input = user_input
   end
 
-  def contains_digits?(length, width)
-    if length == "0" || width == "0"
+  def is_valid?
+    if @user_input == "0"
       false
-    elsif length =~ /^\d+$/ || width =~ /^\d+$/
+    elsif @user_input =~ /^\d+$/
       true
     else
       false
-    end
-  end
-
-  def are_valid?(length, width)
-    if !contains_digits?(length) || !contains_digits?(width)
-      false
-    else
-      true
     end
   end
 
