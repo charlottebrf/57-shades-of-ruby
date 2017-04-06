@@ -11,4 +11,4 @@ calculator = Calculator.new(length, width)
 gallons = calculator.calculate_gallons
 area = calculator.area
 
-DisplaysGallons.new(gallons, area).displays_gallons
+DisplaysGallons.new(gallons, area).show_message
