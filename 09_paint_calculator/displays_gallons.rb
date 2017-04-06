@@ -4,11 +4,15 @@ class DisplaysGallons
     @area = area
   end
 
-  def displays_gallons
+  def show_message
     if @gallons == 1
-      puts "You will need to purchase #{@gallons} gallon of paint to cover #{@area} square feet."
+      gallons("gallon")
     else
-      puts "You will need to purchase #{@gallons} gallons of paint to cover #{@area} square feet."
+      gallons("gallons")
     end
+  end
+
+  def gallons(gallon_or_gallons)
+    puts "You will need to purchase #{@gallons} #{gallon_or_gallons} of paint to cover #{@area} square feet."
   end
 end
