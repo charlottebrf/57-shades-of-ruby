@@ -1,19 +1,19 @@
 class Keyboard
-#This method does two things it both displays a message to a user & takes its input- so should these therefore be separated into 2 classes & by proxy into 2 methods? That said the one needs the other.
   def gets_length
     puts "Please input the length in feet"
-    length = gets.chomp
+    length = $stdin.gets.chomp
     checker = ChecksValidity.new(length)
     if checker.is_valid?
       length.to_f
     else
-      gets_length() #no error message given
+      puts "Please insert a valid input"
+      gets_length() #no error message given just loops back to question- should have some better error handling?
     end
   end
 
   def gets_width
     puts "Please input the width in feet"
-    width = gets.chomp
+    width = $stdin.gets.chomp
     checker = ChecksValidity.new(width)
     if checker.is_valid?
       width.to_f
