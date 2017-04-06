@@ -53,64 +53,11 @@
 # do_stuff main programme
 # calls methods in correct order to display
 
-def main
-  people = number_of_people()
-  pizzas = number_of_pizzas
-  main_programme(people, pizzas)
-end
 
-def main_programme(people, pizzas)
-  if are_valid?(people, pizzas) == false
-    puts "The number of people or pizzas you entered was incorrect. Please enter them again, ensuring they are whole numbers"
-    return
-  end
-  converted_people = convert_to_number(people)
-  converted_pizzas = convert_to_number(pizzas)
 
-  confirms_people_and_pizzas(converted_people, converted_pizzas)
 
-  slice_per_person = calculates_number_of_pizza_slices_per_person(converted_people, converted_pizzas)
-  left_over_slices = calculates_number_of_left_over_slices(converted_people, converted_pizzas)
 
-  displays_number_of_slices_per_person(slice_per_person)
-  displays_number_of_left_over_slices(left_over_slices)
-end
-
-def number_of_people
-  puts "How many people are there?"
-  gets.chomp
-end
-
-def number_of_pizzas
-  puts "How many pizzas are there?"
-  gets.chomp
-end
-
-def are_valid?(people, pizzas)
-  if !contains_digits?(people) || !contains_digits?(pizzas)
-    false
-  else
-    true
-  end
-end
-
-def contains_digits?(str)
-  if str == "0"
-    false
-  elsif str =~ /^\d+$/
-    true
-  else
-    false
-  end
-end
-
-def convert_to_number(str)
-  str.to_i
-end
-
-def confirms_people_and_pizzas(people, pizzas)
-  puts "#{people} people with #{pizzas} pizzas"
-end
+class Calculator
 
 SLICES = 8
 
@@ -130,20 +77,15 @@ def calculates_number_of_pizza_slices_per_person(people, pizzas)
   end
 end
 
-def displays_number_of_slices_per_person(slice_per_person)
-  puts "Each person gets #{slice_per_person} pieces of pizza."
-end
-
 def calculates_number_of_left_over_slices(people, pizzas)
   remainder = calculates_number_of_pizza_slices_per_person(people, pizzas) * people
   calculates_total_pizza_slices(pizzas) - remainder
 end
 
-def displays_number_of_left_over_slices(left_over_slices)
-  puts "There are #{left_over_slices} leftover pieces."
 end
 
-main()
+
+
 
 
 RSpec.describe "evenly divides people between people for a pizza party" do
