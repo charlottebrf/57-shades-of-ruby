@@ -45,7 +45,6 @@ class DisplaysGallons
       puts "You will need to purchase #{@gallons} gallons of paint to cover #{@area} square feet."
     end
   end
-
 end
 
 def main_programme
