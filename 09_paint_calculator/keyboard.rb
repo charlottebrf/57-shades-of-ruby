@@ -7,7 +7,7 @@ class Keyboard
       length.to_f
     else
       puts "Please insert a valid input"
-      gets_length() #no error message given just loops back to question- should have some better error handling?
+      gets_length()
     end
   end
 
@@ -18,7 +18,8 @@ class Keyboard
     if checker.is_valid?
       width.to_f
     else
-      gets_width() #no error message given
+      puts "Please insert a valid input"
+      gets_width()
     end
   end
 end
