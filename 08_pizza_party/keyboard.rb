@@ -4,22 +4,29 @@ class Keyboard
     @display = display
   end
 
-  def num_of_people
+#duplicative methods- how can I refactor to avoid repretition?
+#without forcing my method to do too much
+  def num_people
     @display.asks_question("people")
-    $stdin.gets.chomp
-  end
-
-  def num_of_pizzas
-    @display.asks_question("pizzas")
-    pizzas = $stdin.gets.chomp
-    if is_a_number?(pizzas)
-      pizzas
+    people = $stdin.gets.chomp
+    if number?(people)
+      people
     else
-      num_of_pizzas
+      num_people
     end
   end
 
-  def is_a_number?(str)
+  def num_pizzas
+    @display.asks_question("pizzas")
+    pizzas = $stdin.gets.chomp
+    if number?(pizzas)
+      pizzas
+    else
+      num_pizzas
+    end
+  end
+
+  def number?(str)
     if str == "0"
       false
     elsif str =~ /^\d+$/
