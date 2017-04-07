@@ -29,6 +29,3 @@ class Keyboard
     end
   end
 end
-
-# num_of_people()
-# people_valid?
