@@ -12,6 +12,7 @@ class Keyboard
     if number?(people)
       people
     else
+      @display.error_message()
       num_people
     end
   end
@@ -22,6 +23,7 @@ class Keyboard
     if number?(pizzas)
       pizzas
     else
+      @display.error_message()
       num_pizzas
     end
   end

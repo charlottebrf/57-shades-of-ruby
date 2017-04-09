@@ -1,8 +1,9 @@
 
 class Calculator
-  def initialize(people, pizzas)
+  def initialize(people, pizzas, display)
     @people = people
     @pizzas = pizzas
+    @display = display
   end
 
 
@@ -12,12 +13,14 @@ class Calculator
     @pizzas * SLICES
   end
 
-  def slices
-    slices = (total() / @people).round
-    if slices.even?
-      slices
+  def total_slices
+    slices1 = (total() / @people).round
+    if slices1.even?
+
+      @display.slices(slices1)
     else
       slices - 1
+      @display.slices(slices1)
     end
   end
 
